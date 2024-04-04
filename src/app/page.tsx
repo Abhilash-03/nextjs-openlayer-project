@@ -1,9 +1,9 @@
-import Image from "next/image";
+import MapComp from "@/components/Map";
 
 export default function Home() {
   return (
-    <main className="h-screen bg-black text-gray-300 w-full">
-      <h1 className="text-3xl font-bold">SETUP PROJECT</h1>
+    <main>
+      <MapComp />
     </main>
   );
 }
