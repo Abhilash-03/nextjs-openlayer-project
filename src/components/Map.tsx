@@ -11,9 +11,11 @@ import { Point, LineString, Polygon, Geometry } from 'ol/geom'
 import { Feature } from 'ol'
 import { getLength, getArea } from 'ol/sphere'
 
+type GeometryType = 'Point' | 'LineString' | 'Polygon' | 'GeometryCollection'
+
 const MapComp: React.FC = () => {
   const [pinpoint, setPinpoint] = useState<[number, number]>([0, 0])
-  const [drawingMode, setDrawingMode] = useState<string>('')
+  const [drawingMode, setDrawingMode] = useState<GeometryType | null>(null)
   const [measurement, setMeasurement] = useState<string | null>(null)
 
   useEffect(() => {
@@ -101,7 +103,7 @@ const MapComp: React.FC = () => {
         map.removeInteraction(modifyInteraction)
         map.removeInteraction(snapInteraction)
       }
-    // }
+      
   }, [drawingMode])
 
   return (
@@ -112,7 +114,7 @@ const MapComp: React.FC = () => {
       <button onClick={() => setDrawingMode('Point')} className='bg-black mx-auto shadow-md hover:shadow-slate-300 hover:bg-gray-700 text-gray-400 rounded-md h-12 px-3 py-2 font-bold text-sm active:scale-95 active:shadow-none'>Draw Point</button>
       <button onClick={() => setDrawingMode('LineString')}className='bg-black mx-auto shadow-md hover:shadow-slate-300 hover:bg-gray-700 text-gray-400 rounded-md h-12 px-3 py-2 font-bold text-sm active:scale-95 active:shadow-none'>Draw Line</button>
       <button onClick={() => setDrawingMode('Polygon')} className='bg-black mx-auto shadow-md hover:shadow-slate-300 hover:bg-gray-700 text-gray-400 rounded-md h-12 px-3 py-2 font-bold text-sm active:scale-95 active:shadow-none'>Draw Polygon</button>
-      <button onClick={() => setDrawingMode('')} className='bg-black mx-auto shadow-md hover:shadow-slate-300 hover:bg-gray-700 text-gray-400 rounded-md h-12 px-3 py-2 font-bold text-sm active:scale-95 active:shadow-none'>Stop Drawing</button>
+      <button onClick={() => setDrawingMode(null)} className='bg-black mx-auto shadow-md hover:shadow-slate-300 hover:bg-gray-700 text-gray-400 rounded-md h-12 px-3 py-2 font-bold text-sm active:scale-95 active:shadow-none'>Stop Drawing</button>
       </div>
       <p className='font-semibold text-xl text-red-500 bg-slate-900 font-serif p-2 text-center'>{measurement || 'Area/Length'}</p>
       </div>
